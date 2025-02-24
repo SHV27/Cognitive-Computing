@@ -1,0 +1,38 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+rn = 102317155
+np.random.seed(rn)
+sdata = np.random.randint(1000, 5001, size=(12, 4))
+cats = ['Electronics', 'Clothing', 'Home & Kitchen', 'Sports']
+mons = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+df = pd.DataFrame(sdata, columns=cats, index=mons)
+print(df)
+print(df.head())
+print(df.describe())
+
+df['Total Sales'] = df.sum(axis=1)
+tot_cat = df[cats].sum()
+print(tot_cat)
+print(df['Total Sales'])
+
+df['Growth Rate'] = df['Total Sales'].pct_change() * 100
+disc_cat = 'Electronics' if rn % 2 == 0 else 'Clothing'
+df[disc_cat] *= 0.90 if disc_cat == 'Electronics' else 0.85
+print(df.head())
+
+plt.figure(figsize=(10, 6))
+for cat in cats:
+    plt.plot(mons, df[cat], label=cat)
+plt.xlabel('Month')
+plt.ylabel('Sales')
+plt.title('Monthly Sales Trends')
+plt.show()
+
+plt.figure(figsize=(8, 6))
+sns.boxplot(data=df[cats])
+plt.title('Sales Distribution')
+plt.show()

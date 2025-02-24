@@ -1,0 +1,36 @@
+import cv2
+import numpy as np
+
+arr = np.array([[1, -2, 3],
+                [-4, 5, -6]])
+
+abs_arr = cv2.absdiff(arr, np.zeros_like(arr))
+print("Absolute Values:\n", abs_arr)
+
+perc_all = np.percentile(arr, [25, 50, 75])
+print("\nPercentiles (Flattened Array):", perc_all)
+
+perc_col = np.percentile(arr, [25, 50, 75], axis=0)
+print("\nPercentiles (Columns):\n", perc_col)
+
+perc_row = np.percentile(arr, [25, 50, 75], axis=1)
+print("\nPercentiles (Rows):\n", perc_row)
+
+avg = np.mean(arr)
+med = np.median(arr)
+std_val = np.std(arr)
+print(f"\nFlattened Array - Mean: {avg}, Median: {med}, Standard Deviation: {std_val}")
+
+col_avg = np.mean(arr, axis=0)
+col_med = np.median(arr, axis=0)
+col_std = np.std(arr, axis=0)
+print("\nColumn-wise Mean:", col_avg)
+print("Column-wise Median:", col_med)
+print("Column-wise Standard Deviation:", col_std)
+
+row_avg = np.mean(arr, axis=1)
+row_med = np.median(arr, axis=1)
+row_std = np.std(arr, axis=1)
+print("\nRow-wise Mean:", row_avg)
+print("Row-wise Median:", row_med)
+print("Row-wise Standard Deviation:", row_std)
